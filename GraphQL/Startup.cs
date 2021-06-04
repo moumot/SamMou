@@ -15,7 +15,7 @@ namespace GraphQL
 {
     public class Startup
     {
-        //test1456
+        //test1456new
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
