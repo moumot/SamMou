@@ -5,13 +5,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Interface\" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.6" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GraphQL.Models\GraphQL.Models.csproj" />
-    <ProjectReference Include="..\GraphQL.DataContext\GraphQL.DataContext.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <Reference Include="Microsoft.EntityFrameworkCore, Version=5.0.6.0, Culture=neutral, PublicKeyToken=adb9793829ddae60" />
   </ItemGroup>
 </Project>
