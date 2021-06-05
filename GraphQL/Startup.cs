@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using GraphQL.DataContext;
 using GraphQL.Services;
 using GraphQL.Services.Interface;
 using Microsoft.AspNetCore.Builder;
@@ -12,6 +13,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.EntityFrameworkCore;
 
 namespace GraphQL
 {
@@ -28,7 +30,12 @@ namespace GraphQL
         public void ConfigureServices(IServiceCollection services)
         {
             //services.AddApplicationInsigthsTelemetry();
-            //.EnableSensitiveDataLogging(),ServiceLifetime.Scoped
+
+            services.AddDbContext<GraphQLDataContext>(
+                options =>
+                options.UseInMemoryDatabase("Test")
+                .EnableSensitiveDataLogging(), ServiceLifetime.Scoped
+              ) ;
 
             services.AddControllers();
             services.AddScoped<IWeatherForecastService, WeatherForecastService>();

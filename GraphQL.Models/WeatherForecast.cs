@@ -1,9 +1,12 @@
 using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace GraphQL.Models
 {
     public class WeatherForecast
     {
+        [Key]
+        public Guid ID { get; set; }
         public DateTime Date { get; set; }
 
         public int TemperatureC { get; set; }
