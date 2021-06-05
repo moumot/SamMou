@@ -1,6 +1,6 @@
 using System;
 
-namespace GraphQL
+namespace GraphQL.Models
 {
     public class WeatherForecast
     {
