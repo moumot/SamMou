@@ -1,8 +1,15 @@
 {
   "version": 2,
-  "dgSpecHash": "PiklOF7pMdK/fEMlmgOa/euOQm/KQ887L4h6OrbTYZGC0pmGYux6MQWpTVFFzsQlKcj+VHvmqbifjnbm4w1GTA==",
+  "dgSpecHash": "wd0rJLueOrtyjwDzc3sdRJ6d7z/iE9KqR96VFeThA94X+NkFLGiTQTSJKYVZ6HKpvsgme6rrGd60IoEUbUYQkg==",
   "success": true,
   "projectFilePath": "/Users/qmoy/Projects/SamMou/GraphQL/GraphQL.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "/Users/qmoy/.nuget/packages/microsoft.extensions.apidescription.server/3.0.0/microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",
+    "/Users/qmoy/.nuget/packages/microsoft.openapi/1.2.3/microsoft.openapi.1.2.3.nupkg.sha512",
+    "/Users/qmoy/.nuget/packages/swashbuckle.aspnetcore/6.1.4/swashbuckle.aspnetcore.6.1.4.nupkg.sha512",
+    "/Users/qmoy/.nuget/packages/swashbuckle.aspnetcore.swagger/6.1.4/swashbuckle.aspnetcore.swagger.6.1.4.nupkg.sha512",
+    "/Users/qmoy/.nuget/packages/swashbuckle.aspnetcore.swaggergen/6.1.4/swashbuckle.aspnetcore.swaggergen.6.1.4.nupkg.sha512",
+    "/Users/qmoy/.nuget/packages/swashbuckle.aspnetcore.swaggerui/6.1.4/swashbuckle.aspnetcore.swaggerui.6.1.4.nupkg.sha512"
+  ],
   "logs": []
 }
