@@ -21,12 +21,10 @@ namespace GraphQL.Services
         {
             try
             {
-                List<WeatherForecast> result = new List<WeatherForecast>();
-
                 var query = await (from weather in _context.WeatherForecasts
                             select weather).ToListAsync();
 
-                return result;
+                return query;
             }
             catch(Exception ex)
             {
