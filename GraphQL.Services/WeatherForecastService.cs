@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using GraphQL.DataContext;
 using GraphQL.Models;
 using GraphQL.Services.Interface;
+using Microsoft.EntityFrameworkCore;
 
 namespace GraphQL.Services
 {
@@ -18,37 +19,36 @@ namespace GraphQL.Services
 
         public async Task<List<WeatherForecast>> GetForecast()
         {
-            string[] Summaries = new[]
+            try
             {
-                "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-            };
+                List<WeatherForecast> result = new List<WeatherForecast>();
 
-            var rng = new Random();
-            var weatherList = Enumerable.Range(1, 5).Select(index => new WeatherForecast
-            {
-                ID = Guid.NewGuid(),
-                Date = DateTime.Now.AddDays(index),
-                TemperatureC = rng.Next(-20, 55),
-                Summary = Summaries[rng.Next(Summaries.Length)]
-            })
-            .ToList();
+                var query = await (from weather in _context.WeatherForecasts
+                            select weather).ToListAsync();
 
-            foreach (var weather in weatherList)
+                return result;
+            }
+            catch(Exception ex)
             {
-                await _context.WeatherForecasts.AddAsync(weather);
+                throw ex;
             }
 
-            await _context.SaveChangesAsync();
+        }
 
-            List<WeatherForecast> result = new List<WeatherForecast>();
+        public async Task<bool> InsertForecast(WeatherForecast weatherForecast)
+        {
+            try
+            {
+                await _context.WeatherForecasts.AddAsync(weatherForecast);
 
-            var query = from weather in _context.WeatherForecasts
-                        select weather;
+                var result = await _context.SaveChangesAsync();
 
-            result = query.ToList();
-
-            return result;
-
+                return result > 0;
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }
