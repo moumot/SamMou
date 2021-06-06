@@ -33,7 +33,7 @@ namespace GraphQL
 
             services.AddDbContext<GraphQLDataContext>(
                 options =>
-                options.UseInMemoryDatabase("Test")
+                options.UseCosmos(Configuration.GetValue<string>("SamMouCosmos:Endpoint"), Configuration.GetValue<string>("SamMouCosmos:PrimaryKey"), Configuration.GetValue<string>("SamMouCosmos:DatabaseName"))
                 .EnableSensitiveDataLogging(), ServiceLifetime.Scoped
               ) ;
 
@@ -70,6 +70,15 @@ namespace GraphQL
             {
                 endpoints.MapControllers();
             });
+
+            var scopeFactory = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>();
+            using (var scope = scopeFactory.CreateScope())
+            {
+                using (var context = scope.ServiceProvider.GetRequiredService<GraphQLDataContext>())
+                {
+                    context.Database.EnsureCreated();
+                }
+            }
         }
     }
 }

@@ -15,7 +15,7 @@ namespace GraphQL.DataContext
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<WeatherForecast>();
+            modelBuilder.Entity<WeatherForecast>().ToContainer("WeatherForecast").HasPartitionKey(o => o.Summary);
 
             base.OnModelCreating(modelBuilder);
         }
