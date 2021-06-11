@@ -17,7 +17,7 @@ namespace SamMou.Api.Services
             _context = context;
         }
 
-        public async Task<List<WeatherForecast>> GetForecast()
+        public async Task<List<WeatherForecast>> GetAllForecast()
         {
             try
             {
@@ -27,6 +27,23 @@ namespace SamMou.Api.Services
                 return query;
             }
             catch(Exception ex)
+            {
+                throw ex;
+            }
+
+        }
+
+        public async Task<WeatherForecast> GetForecast(Guid id)
+        {
+            try
+            {
+                var query = await (from weather in _context.WeatherForecasts
+                                   where weather.ID == id
+                                   select weather).FirstOrDefaultAsync();
+
+                return query;
+            }
+            catch (Exception ex)
             {
                 throw ex;
             }

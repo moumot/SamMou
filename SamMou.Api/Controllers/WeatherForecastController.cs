@@ -23,11 +23,11 @@ namespace SamMou.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> GetAll()
         {
             try
             {
-                var output = await _weatherForecastService.GetForecast();
+                var output = await _weatherForecastService.GetAllForecast();
                 if (output != null)
                     return Ok(output);
                 else
