@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using GraphQL.Models;
+using SamMou.Api.Models;
 
-namespace GraphQL.Services.Interface
+namespace SamMou.Api.Services.Interface
 {
     public interface IWeatherForecastService
     {

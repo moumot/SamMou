@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using GraphQL.DataContext;
-using GraphQL.Services;
-using GraphQL.Services.Interface;
+using SamMou.Api.DataContext;
+using SamMou.Api.Services;
+using SamMou.Api.Services.Interface;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -14,8 +14,14 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
+using SamMou.Api.GraphQL;
+using SamMou.Api.Models;
+using GraphQL.Utilities;
+using GraphQL.EntityFramework;
+using GraphQL;
+using GraphQL.Types;
 
-namespace GraphQL
+namespace SamMou.Api
 {
     public class Startup
     {
@@ -31,7 +37,7 @@ namespace GraphQL
         {
             services.AddApplicationInsightsTelemetry();
 
-            services.AddDbContext<GraphQLDataContext>(
+            services.AddDbContext<SamMouDataContext>(
                 options =>
                 options.UseCosmos(Configuration.GetValue<string>("SamMouCosmos:Endpoint"), Configuration.GetValue<string>("SamMouCosmos:PrimaryKey"), Configuration.GetValue<string>("SamMouCosmos:DatabaseName"))
                 .EnableSensitiveDataLogging(), ServiceLifetime.Scoped
@@ -39,6 +45,21 @@ namespace GraphQL
 
             services.AddControllers();
             services.AddScoped<IWeatherForecastService, WeatherForecastService>();
+
+            // GraphQL            
+            GraphTypeTypeRegistry.Register<WeatherForecast, SamMouGraph>();
+            EfGraphQLConventions.RegisterInContainer(services, (context) => (context as GraphQLSamMouDataContext)?.Context);
+            EfGraphQLConventions.RegisterConnectionTypesInContainer(services);
+            services.AddSingleton<IDocumentExecuter, EfDocumentExecuter>();
+            services.AddSingleton<GraphQLQuery>();
+            services.AddSingleton<GraphQLSchema>();
+
+            // Import also all the other created Graphs
+            foreach (Type type in GetGraphQlTypes())
+            {
+                services.AddScoped(type);
+            }
+
             services.AddSwaggerGen();
 
         }
@@ -62,6 +83,8 @@ namespace GraphQL
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "SamMou Api");
             });
 
+            app.UseGraphQLPlayground();
+
             app.UseRouting();
 
             app.UseAuthorization();
@@ -71,14 +94,24 @@ namespace GraphQL
                 endpoints.MapControllers();
             });
 
-            var scopeFactory = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>();
+            var scopeFactory = app.ApplicationServices.GetService<IServiceScopeFactory>();
             using (var scope = scopeFactory.CreateScope())
             {
-                using (var context = scope.ServiceProvider.GetRequiredService<GraphQLDataContext>())
+                using (var context = scope.ServiceProvider.GetService<SamMouDataContext>())
                 {
                     context.Database.EnsureCreated();
                 }
             }
+        }
+
+        static IEnumerable<Type> GetGraphQlTypes()
+        {
+            return typeof(Startup).Assembly
+                .GetTypes()
+                .Where(x => !x.IsAbstract &&
+                            (typeof(IObjectGraphType).IsAssignableFrom(x) ||
+                             typeof(IInputObjectGraphType).IsAssignableFrom(x) ||
+                             typeof(ScalarGraphType).IsAssignableFrom(x)));
         }
     }
 }

@@ -2,17 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using GraphQL.DataContext;
-using GraphQL.Models;
-using GraphQL.Services.Interface;
+using SamMou.Api.DataContext;
+using SamMou.Api.Models;
+using SamMou.Api.Services.Interface;
 using Microsoft.EntityFrameworkCore;
 
-namespace GraphQL.Services
+namespace SamMou.Api.Services
 {
     public class WeatherForecastService : IWeatherForecastService
     {
-        private readonly GraphQLDataContext _context;
-        public WeatherForecastService(GraphQLDataContext context)
+        private readonly SamMouDataContext _context;
+        public WeatherForecastService(SamMouDataContext context)
         {
             _context = context;
         }

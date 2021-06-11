@@ -9,6 +9,6 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Cosmos" Version="5.0.6" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\GraphQL.Models\GraphQL.Models.csproj" />
+    <ProjectReference Include="..\SamMou.Api.Models\SamMou.Api.Models.csproj" />
   </ItemGroup>
 </Project>

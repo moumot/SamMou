@@ -4,10 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using GraphQL.Models;
-using GraphQL.Services.Interface;
+using SamMou.Api.Models;
+using SamMou.Api.Services.Interface;
 
-namespace GraphQL.Controllers
+namespace SamMou.Api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]

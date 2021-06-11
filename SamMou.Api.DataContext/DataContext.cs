@@ -1,14 +1,14 @@
 ﻿using System;
-using GraphQL.Models;
+using SamMou.Api.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace GraphQL.DataContext
+namespace SamMou.Api.DataContext
 {
-    public class GraphQLDataContext : DbContext
+    public class SamMouDataContext : DbContext
     {
         public DbSet<WeatherForecast> WeatherForecasts { get; set; }
 
-        public GraphQLDataContext(DbContextOptions<GraphQLDataContext> options) : base(options)
+        public SamMouDataContext(DbContextOptions<SamMouDataContext> options) : base(options)
         {
 
         }

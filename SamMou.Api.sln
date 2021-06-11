@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.809.10
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphQL", "GraphQL\GraphQL.csproj", "{690707EB-840B-42C6-BCB0-404E2EE19E54}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SamMou.Api", "SamMou.Api\SamMou.Api.csproj", "{690707EB-840B-42C6-BCB0-404E2EE19E54}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphQL.Services", "GraphQL.Services\GraphQL.Services.csproj", "{2023BF1B-B0FE-4ED6-96A9-D40735BD8F0B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SamMou.Api.Services", "SamMou.Api.Services\SamMou.Api.Services.csproj", "{2023BF1B-B0FE-4ED6-96A9-D40735BD8F0B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphQL.Models", "GraphQL.Models\GraphQL.Models.csproj", "{CC727960-07B2-4F34-A88C-95F24E1FAB29}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SamMou.Api.Models", "SamMou.Api.Models\SamMou.Api.Models.csproj", "{CC727960-07B2-4F34-A88C-95F24E1FAB29}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphQL.DataContext", "GraphQL.DataContext\GraphQL.DataContext.csproj", "{D6485385-3A5B-482C-BB23-62B00DF4DCEB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SamMou.Api.DataContext", "SamMou.Api.DataContext\SamMou.Api.DataContext.csproj", "{D6485385-3A5B-482C-BB23-62B00DF4DCEB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SamMou.Api.GraphQL", "SamMou.Api.Graph\SamMou.Api.GraphQL.csproj", "{7F07023A-63A0-4D15-BAC1-592F8B66A5D0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{D6485385-3A5B-482C-BB23-62B00DF4DCEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D6485385-3A5B-482C-BB23-62B00DF4DCEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D6485385-3A5B-482C-BB23-62B00DF4DCEB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7F07023A-63A0-4D15-BAC1-592F8B66A5D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7F07023A-63A0-4D15-BAC1-592F8B66A5D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7F07023A-63A0-4D15-BAC1-592F8B66A5D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7F07023A-63A0-4D15-BAC1-592F8B66A5D0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

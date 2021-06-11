@@ -1,7 +1,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace GraphQL.Models
+namespace SamMou.Api.Models
 {
     public class WeatherForecast
     {

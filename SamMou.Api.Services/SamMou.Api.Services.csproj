@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Interface\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.EntityFrameworkCore, Version=5.0.6.0, Culture=neutral, PublicKeyToken=adb9793829ddae60" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SamMou.Api.Models\SamMou.Api.Models.csproj" />
+    <ProjectReference Include="..\SamMou.Api.DataContext\SamMou.Api.DataContext.csproj" />
+  </ItemGroup>
+</Project>
