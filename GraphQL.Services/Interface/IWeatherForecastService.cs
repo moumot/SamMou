@@ -8,5 +8,6 @@ namespace GraphQL.Services.Interface
     public interface IWeatherForecastService
     {
         Task<List<WeatherForecast>> GetForecast();
+        Task<bool> InsertForecast(WeatherForecast weatherForecast);
     }
 }

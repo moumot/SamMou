@@ -40,5 +40,24 @@ namespace GraphQL.Controllers
             }
 
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Insert(WeatherForecast weatherForecast)
+        {
+            try
+            {
+                var output = await _weatherForecastService.InsertForecast(weatherForecast);
+                if (output)
+                    return Ok(output);
+                else
+                    throw new Exception("GetForecast returns null");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogInformation(ex.Message);
+                return BadRequest(ex.Message);
+            }
+
+        }
     }
 }
