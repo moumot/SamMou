@@ -50,15 +50,26 @@ namespace SamMou.Api.Services
 
         }
 
-        public async Task<bool> InsertForecast(WeatherForecast weatherForecast)
+        public async Task<WeatherForecast> InsertUpdateForecast(WeatherForecast weatherForecastInput)
         {
             try
             {
-                await _context.WeatherForecasts.AddAsync(weatherForecast);
+                var weatherForecast = await _context.WeatherForecasts.Where(m => m.ID == weatherForecastInput.ID).FirstOrDefaultAsync();
+                if(weatherForecast == null)
+                {
+                    weatherForecast = new WeatherForecast();
+                    weatherForecast = weatherForecastInput;
+                    await _context.WeatherForecasts.AddAsync(weatherForecast);
+                }
+                else
+                {
+                    weatherForecast.Date = weatherForecastInput.Date;
+                    weatherForecast.Summary = weatherForecastInput.Summary;
+                    weatherForecast.TemperatureC = weatherForecastInput.TemperatureC;
+                }
 
                 var result = await _context.SaveChangesAsync();
-
-                return result > 0;
+                return weatherForecast;
             }
             catch(Exception ex)
             {

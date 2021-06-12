@@ -15,8 +15,20 @@ namespace SamMou.Api.GraphQL
             Field(m => m.Summary).Description("Summary of the WeatherForecast");
             Field(m => m.Date).Description("Date of the WeatherForecast");
             Field(m => m.TemperatureC).Description("Temperature C of the WeatherForecast");
-            Field(m => m.TemperatureF).Description("Temperature F of the WeatherForecast");
+        }
+    }
 
+    public sealed class WeatherForecastInputObject : InputObjectGraphType<WeatherForecast>
+    {
+        public WeatherForecastInputObject()
+        {
+            Name = "WeatherForecastInput";
+            Description = "A WeatherForecastInput in the collection";
+
+            Field(m => m.ID).Description("Identifier of the WeatherForecast");
+            Field(m => m.Summary).Description("Summary of the WeatherForecast");
+            Field(m => m.Date).Description("Date of the WeatherForecast");
+            Field(m => m.TemperatureC).Description("Temperature C of the WeatherForecast");
         }
     }
 }

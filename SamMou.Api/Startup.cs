@@ -39,6 +39,7 @@ namespace SamMou.Api
             services.AddControllers();
             services.AddScoped<IWeatherForecastService, WeatherForecastService>();
             services.AddScoped<QueryObject>();
+            services.AddScoped<MutationObject>();
             services.AddScoped<GraphQLSchema>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddSingleton<IDocumentWriter, DocumentWriter>();

@@ -11,25 +11,32 @@ namespace SamMou.Api.GraphQL
     {
         public QueryObject(IWeatherForecastService service)
         {
-            Name = "Queries";
-            Description = "The base query for all the entities in our object graph.";
+            try
+            {
+                Name = "Queries";
+                Description = "The base query for all the entities in our object graph.";
 
-            FieldAsync<WeatherForecastObject, WeatherForecast>(
-                "singleweatherforecast",
-                "Gets weatherforecast",
-                new QueryArguments(
-                new QueryArgument<NonNullGraphType<IdGraphType>>
-                {
-                    Name = "id",
-                    Description = "The unique GUID of the movie."
-                }),
-                context => service.GetForecast(context.GetArgument("id", Guid.Empty)));
+                FieldAsync<WeatherForecastObject, WeatherForecast>(
+                    "singleweatherforecast",
+                    "Gets weatherforecast",
+                    new QueryArguments(
+                    new QueryArgument<NonNullGraphType<IdGraphType>>
+                    {
+                        Name = "id",
+                        Description = "The unique GUID of the movie."
+                    }),
+                    context => service.GetForecast(context.GetArgument("id", Guid.Empty)));
 
-            FieldAsync<ListGraphType<WeatherForecastObject>, List<WeatherForecast>>(
-                "allweatherforecast",
-                "Gets weatherforecast",
-                null,
-                context => service.GetAllForecast());
+                FieldAsync<ListGraphType<WeatherForecastObject>, List<WeatherForecast>>(
+                    "allweatherforecast",
+                    "Gets weatherforecast",
+                    null,
+                    context => service.GetAllForecast());
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }
