@@ -25,7 +25,7 @@ namespace SamMou.Api.GraphQL
                 }),
                 context => service.GetForecast(context.GetArgument("id", Guid.Empty)));
 
-            FieldAsync<WeatherForecastObject, List<WeatherForecast>>(
+            FieldAsync<ListGraphType<WeatherForecastObject>, List<WeatherForecast>>(
                 "allweatherforecast",
                 "Gets weatherforecast",
                 null,
