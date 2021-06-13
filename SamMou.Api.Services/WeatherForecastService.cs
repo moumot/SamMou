@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using SamMou.Api.DataContext;
 using SamMou.Api.Models;
 using SamMou.Api.Services.Interface;
-using Microsoft.EntityFrameworkCore;
 
 namespace SamMou.Api.Services
 {
@@ -17,7 +17,7 @@ namespace SamMou.Api.Services
             _context = context;
         }
 
-        public async Task<List<WeatherForecast>> GetForecast()
+        public async Task<List<WeatherForecast>> GetAllForecast()
         {
             try
             {
@@ -33,15 +33,43 @@ namespace SamMou.Api.Services
 
         }
 
-        public async Task<bool> InsertForecast(WeatherForecast weatherForecast)
+        public async Task<WeatherForecast> GetForecast(Guid id)
         {
             try
             {
-                await _context.WeatherForecasts.AddAsync(weatherForecast);
+                var query = await (from weather in _context.WeatherForecasts
+                                   where weather.ID == id
+                                   select weather).FirstOrDefaultAsync();
+
+                return query;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+        }
+
+        public async Task<WeatherForecast> InsertUpdateForecast(WeatherForecast weatherForecastInput)
+        {
+            try
+            {
+                var weatherForecast = await _context.WeatherForecasts.Where(m => m.ID == weatherForecastInput.ID).FirstOrDefaultAsync();
+                if(weatherForecast == null)
+                {
+                    weatherForecast = new WeatherForecast();
+                    weatherForecast = weatherForecastInput;
+                    await _context.WeatherForecasts.AddAsync(weatherForecast);
+                }
+                else
+                {
+                    weatherForecast.Date = weatherForecastInput.Date;
+                    weatherForecast.Summary = weatherForecastInput.Summary;
+                    weatherForecast.TemperatureC = weatherForecastInput.TemperatureC;
+                }
 
                 var result = await _context.SaveChangesAsync();
-
-                return result > 0;
+                return weatherForecast;
             }
             catch(Exception ex)
             {

@@ -7,7 +7,8 @@ namespace SamMou.Api.Services.Interface
 {
     public interface IWeatherForecastService
     {
-        Task<List<WeatherForecast>> GetForecast();
-        Task<bool> InsertForecast(WeatherForecast weatherForecast);
+        Task<List<WeatherForecast>> GetAllForecast();
+        Task<WeatherForecast> InsertUpdateForecast(WeatherForecast weatherForecastInput);
+        Task<WeatherForecast> GetForecast(Guid id);
     }
 }

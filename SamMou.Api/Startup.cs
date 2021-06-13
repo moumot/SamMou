@@ -1,25 +1,19 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using SamMou.Api.DataContext;
-using SamMou.Api.Services;
-using SamMou.Api.Services.Interface;
+using GraphQL;
+using GraphQL.Server;
+using GraphQL.SystemTextJson;
+using GraphQL.Utilities;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Microsoft.EntityFrameworkCore;
+using SamMou.Api.DataContext;
 using SamMou.Api.GraphQL;
-using SamMou.Api.Models;
-using GraphQL.Utilities;
-using GraphQL.EntityFramework;
-using GraphQL;
-using GraphQL.Types;
+using SamMou.Api.Services;
+using SamMou.Api.Services.Interface;
 
 namespace SamMou.Api
 {
@@ -35,7 +29,6 @@ namespace SamMou.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddApplicationInsightsTelemetry();
 
             services.AddDbContext<SamMouDataContext>(
                 options =>
@@ -45,20 +38,24 @@ namespace SamMou.Api
 
             services.AddControllers();
             services.AddScoped<IWeatherForecastService, WeatherForecastService>();
+            services.AddScoped<QueryObject>();
+            services.AddScoped<MutationObject>();
+            services.AddScoped<GraphQLSchema>();
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddSingleton<IDocumentWriter, DocumentWriter>();
+
+            services.AddApplicationInsightsTelemetry();
 
             // GraphQL            
-            GraphTypeTypeRegistry.Register<WeatherForecast, SamMouGraph>();
-            EfGraphQLConventions.RegisterInContainer(services, (context) => (context as GraphQLSamMouDataContext)?.Context);
-            EfGraphQLConventions.RegisterConnectionTypesInContainer(services);
-            services.AddSingleton<IDocumentExecuter, EfDocumentExecuter>();
-            services.AddSingleton<GraphQLQuery>();
-            services.AddSingleton<GraphQLSchema>();
-
-            // Import also all the other created Graphs
-            foreach (Type type in GetGraphQlTypes())
-            {
-                services.AddScoped(type);
-            }
+            services.AddGraphQL((options, provider) =>{
+            // Log errors
+            var logger = provider.GetRequiredService<ILogger<Startup>>();
+                        options.UnhandledExceptionDelegate = ctx =>
+                            logger.LogError("{Error} occurred", ctx.OriginalException.Message);
+                    })
+                .AddGraphTypes(typeof(GraphQLSchema))
+                .AddDataLoader()
+                .AddSystemTextJson();
 
             services.AddSwaggerGen();
 
@@ -83,7 +80,9 @@ namespace SamMou.Api
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "SamMou Api");
             });
 
-            app.UseGraphQLPlayground();
+            app.UseGraphQLAltair();
+
+            app.UseGraphQL<GraphQLSchema>();
 
             app.UseRouting();
 
@@ -102,16 +101,6 @@ namespace SamMou.Api
                     context.Database.EnsureCreated();
                 }
             }
-        }
-
-        static IEnumerable<Type> GetGraphQlTypes()
-        {
-            return typeof(Startup).Assembly
-                .GetTypes()
-                .Where(x => !x.IsAbstract &&
-                            (typeof(IObjectGraphType).IsAssignableFrom(x) ||
-                             typeof(IInputObjectGraphType).IsAssignableFrom(x) ||
-                             typeof(ScalarGraphType).IsAssignableFrom(x)));
         }
     }
 }

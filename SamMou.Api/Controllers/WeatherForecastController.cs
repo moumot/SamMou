@@ -23,11 +23,11 @@ namespace SamMou.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> GetAll()
         {
             try
             {
-                var output = await _weatherForecastService.GetForecast();
+                var output = await _weatherForecastService.GetAllForecast();
                 if (output != null)
                     return Ok(output);
                 else
@@ -46,11 +46,11 @@ namespace SamMou.Api.Controllers
         {
             try
             {
-                var output = await _weatherForecastService.InsertForecast(weatherForecast);
-                if (output)
+                var output = await _weatherForecastService.InsertUpdateForecast(weatherForecast);
+                if (output != null)
                     return Ok(output);
                 else
-                    throw new Exception("GetForecast returns null");
+                    throw new Exception("Insert or Update failed");
             }
             catch (Exception ex)
             {

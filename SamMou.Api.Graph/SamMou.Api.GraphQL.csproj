@@ -5,11 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="GraphQL" Version="3.3.2" />
-    <PackageReference Include="GraphQL.EntityFramework" Version="11.0.0" />
+    <PackageReference Include="GraphQL" Version="4.5.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SamMou.Api.DataContext\SamMou.Api.DataContext.csproj" />
     <ProjectReference Include="..\SamMou.Api.Models\SamMou.Api.Models.csproj" />
+    <ProjectReference Include="..\SamMou.Api.Services\SamMou.Api.Services.csproj" />
   </ItemGroup>
 </Project>

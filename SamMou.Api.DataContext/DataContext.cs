@@ -1,6 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
 using SamMou.Api.Models;
-using Microsoft.EntityFrameworkCore;
 
 namespace SamMou.Api.DataContext
 {
