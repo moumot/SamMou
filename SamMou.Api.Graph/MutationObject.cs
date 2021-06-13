@@ -18,13 +18,13 @@ namespace SamMou.Api.GraphQL
                 FieldAsync<WeatherForecastObject, WeatherForecast>(
                     "addWeatherForecast",
                     "Add weatherforecast",
-                    new QueryArguments(
+                    arguments: new QueryArguments(
                         new QueryArgument<NonNullGraphType<WeatherForecastInputObject>>
                         {
                             Name = "Weatherforecast",
                             Description = "Weatherforecast input model"
                         }),
-                    context =>
+                    resolve: context =>
                     {
                         var weatherForecast = context.GetArgument<WeatherForecast>("Weatherforecast");
                         return service.InsertUpdateForecast(weatherForecast);

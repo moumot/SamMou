@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using GraphQL.Types;
+﻿using GraphQL.Types;
 using SamMou.Api.Models;
 
 namespace SamMou.Api.GraphQL

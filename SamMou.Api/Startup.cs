@@ -1,19 +1,19 @@
-using SamMou.Api.DataContext;
-using SamMou.Api.Services;
-using SamMou.Api.Services.Interface;
+using GraphQL;
+using GraphQL.Server;
+using GraphQL.SystemTextJson;
+using GraphQL.Utilities;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.EntityFrameworkCore;
-using GraphQL.Utilities;
 using Microsoft.Extensions.Logging;
-using GraphQL.Server;
+using SamMou.Api.DataContext;
 using SamMou.Api.GraphQL;
-using GraphQL;
-using GraphQL.SystemTextJson;
-using Microsoft.AspNetCore.Http;
+using SamMou.Api.Services;
+using SamMou.Api.Services.Interface;
 
 namespace SamMou.Api
 {

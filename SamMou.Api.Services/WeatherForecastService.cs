@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using SamMou.Api.DataContext;
 using SamMou.Api.Models;
 using SamMou.Api.Services.Interface;
-using Microsoft.EntityFrameworkCore;
 
 namespace SamMou.Api.Services
 {

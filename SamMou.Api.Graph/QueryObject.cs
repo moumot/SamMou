@@ -19,19 +19,19 @@ namespace SamMou.Api.GraphQL
                 FieldAsync<WeatherForecastObject, WeatherForecast>(
                     "singleweatherforecast",
                     "Gets weatherforecast",
-                    new QueryArguments(
+                   arguments: new QueryArguments(
                     new QueryArgument<NonNullGraphType<IdGraphType>>
                     {
                         Name = "id",
-                        Description = "The unique GUID of the movie."
+                        Description = "The unique GUID of the weatherforecast."
                     }),
-                    context => service.GetForecast(context.GetArgument("id", Guid.Empty)));
+                    resolve: context => service.GetForecast(context.GetArgument("id", Guid.Empty)));
 
                 FieldAsync<ListGraphType<WeatherForecastObject>, List<WeatherForecast>>(
                     "allweatherforecast",
                     "Gets weatherforecast",
-                    null,
-                    context => service.GetAllForecast());
+                    arguments: null,
+                    resolve: context => service.GetAllForecast());
             }
             catch(Exception ex)
             {
