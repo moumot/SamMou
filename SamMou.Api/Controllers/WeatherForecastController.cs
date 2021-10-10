@@ -27,6 +27,7 @@ namespace SamMou.Api.Controllers
         {
             try
             {
+                _logger.LogInformation("Called GetAll");
                 var output = await _weatherForecastService.GetAllForecast();
                 if (output != null)
                     return Ok(output);
